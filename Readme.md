@@ -185,55 +185,6 @@ This repository focuses on understanding:
 
 ---
 
-# Progress
-
-| Module                       | Status |
-| ---------------------------- | :----: |
-| Design Patterns              |    ⏳   |
-| Data Structures & Algorithms |    ⏳   |
-| PL/SQL                       |    ⏳   |
-| JUnit                        |    ⏳   |
-| Mockito                      |    ⏳   |
-| SLF4J                        |    ⏳   |
-| Spring Core                  |    ⏳   |
-| Spring Data JPA              |    ⏳   |
-| Spring REST                  |    ⏳   |
-| Microservices                |    ⏳   |
-| React                        |    ⏳   |
-| Git                          |    ⏳   |
-
-> ⏳ In Progress  ✅ Completed
-
----
-
-# How to Run
-
-Clone the repository:
-
-```bash
-git clone https://github.com/<your-username>/digital-nurture-java-fse.git
-```
-
-Navigate to the required exercise:
-
-```bash
-cd Week-1/SingletonPatternExample
-```
-
-Build using Maven:
-
-```bash
-mvn clean install
-```
-
-Run the application using your preferred IDE or:
-
-```bash
-mvn exec:java
-```
-
----
-
 # Purpose
 
 This repository serves as:
