@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 
+        Spring Bean definition for Country entity.
+        SME Walkthrough Notes:
+        - id: Unique identifier for retrieving the bean from the IoC container ("country").
+        - class: Fully qualified class name of the Java object ("com.cognizant.springlearn.Country").
+        - property: Performs setter injection by calling setCode("IN") and setName("India").
+    -->
+    <bean id="country" class="com.cognizant.springlearn.Country">
+        <property name="code" value="IN" />
+        <property name="name" value="India" />
+    </bean>
+
+</beans>
