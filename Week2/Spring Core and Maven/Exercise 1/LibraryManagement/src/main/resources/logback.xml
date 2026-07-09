@@ -1,0 +1,17 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{30} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Suppress noisy Spring framework internal DEBUG logs -->
+    <logger name="org.springframework" level="WARN"/>
+
+    <!-- Our application code logs at DEBUG and above -->
+    <logger name="com.library" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

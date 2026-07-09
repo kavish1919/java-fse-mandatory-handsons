@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    applicationContext.xml
+    Spring XML configuration for Exercise 4.
+
+    Beans:
+      bookRepository  – no dependencies
+      bookService     – setter-injected BookRepository
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bookRepository"
+          class="com.library.repository.BookRepository"/>
+
+    <bean id="bookService"
+          class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepository"/>
+    </bean>
+
+    <bean id="bookController"
+          class="com.library.web.BookController">
+        <constructor-arg ref="bookService"/>
+    </bean>
+
+</beans>

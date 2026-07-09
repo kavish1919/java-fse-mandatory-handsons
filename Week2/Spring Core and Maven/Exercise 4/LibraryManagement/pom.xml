@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- =========================================================
+         Project Coordinates
+    ========================================================= -->
+    <groupId>com.library</groupId>
+    <artifactId>LibraryManagement</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>LibraryManagement</name>
+    <description>
+        Exercise 4 – Creating and Configuring a Maven Project.
+        Demonstrates adding Spring Context, Spring AOP, and Spring WebMVC
+        dependencies and configuring the Maven Compiler Plugin for Java 1.8.
+    </description>
+
+    <!-- =========================================================
+         Global Properties
+         java.version is set to 1.8 as required by the exercise.
+    ========================================================= -->
+    <properties>
+        <java.version>1.8</java.version>
+
+        <!--
+            maven.compiler.source / target control which Java version
+            the compiler accepts and targets.  Both must be 1.8 here
+            to satisfy the exercise requirement.
+        -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Pin all Spring artifacts to the same version via a property -->
+        <spring.version>5.3.39</spring.version>
+    </properties>
+
+    <!-- =========================================================
+         Dependencies
+         Three Spring modules requested by the exercise:
+           1. spring-context  – IoC container, ApplicationContext
+           2. spring-aop      – Aspect-Oriented Programming support
+           3. spring-webmvc   – Spring MVC DispatcherServlet, controllers
+    ========================================================= -->
+    <dependencies>
+
+        <!-- ─────────────────────────────────────────────────────
+             1. Spring Context
+             Provides: ApplicationContext, ClassPathXmlApplicationContext,
+             AnnotationConfigApplicationContext, bean lifecycle hooks,
+             event system, and resource loading.
+             Transitively pulls in: spring-core, spring-beans,
+             spring-expression, spring-aop.
+        ───────────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────
+             2. Spring AOP
+             Provides: @Aspect support, proxy-based AOP,
+             @Before / @After / @Around advice.
+             Note: spring-context already pulls spring-aop
+             transitively, but declaring it explicitly makes the
+             dependency visible and version-controlled.
+        ───────────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────
+             3. Spring WebMVC
+             Provides: DispatcherServlet, @Controller, @RequestMapping,
+             view resolvers, REST support (@RestController).
+             Transitively pulls in: spring-web, spring-context.
+        ───────────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────
+             Servlet API (provided by the container at runtime;
+             required at compile time for Spring WebMVC controllers)
+        ───────────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────
+             SLF4J + Logback – clean console output
+        ───────────────────────────────────────────────────── -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+
+    </dependencies>
+
+    <!-- =========================================================
+         Build / Plugin Configuration
+    ========================================================= -->
+    <build>
+        <plugins>
+
+            <!-- ─────────────────────────────────────────────────
+                 Maven Compiler Plugin
+                 Configured for Java 1.8 as required by the exercise.
+
+                 source : Java language version the compiler accepts
+                 target : Bytecode version produced
+                 Both set to 1.8 so the project compiles and runs
+                 on any JVM 8 or later.
+            ───────────────────────────────────────────────────── -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- ─────────────────────────────────────────────────
+                 Maven Surefire Plugin – runs unit tests
+            ───────────────────────────────────────────────────── -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+            <!-- ─────────────────────────────────────────────────
+                 Exec Maven Plugin – allows `mvn exec:java`
+            ───────────────────────────────────────────────────── -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <mainClass>com.library.LibraryManagementApp</mainClass>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

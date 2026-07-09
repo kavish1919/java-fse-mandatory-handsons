@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    applicationContext.xml – Exercise 2: Implementing Dependency Injection
+    ═══════════════════════════════════════════════════════════════════════
+
+    Two DI patterns are demonstrated side-by-side:
+
+    ┌─────────────────────────────────────────────────────────────────────┐
+    │ 1. SETTER INJECTION  (bean id="bookService")                        │
+    │    Spring first calls the no-arg constructor, then calls the        │
+    │    setter setBookRepository() to inject the dependency.             │
+    │    Configured via: <property name="..." ref="..."/>                 │
+    │                                                                     │
+    │ 2. CONSTRUCTOR INJECTION  (bean id="bookServiceViaConstructor")     │
+    │    Spring passes the dependency directly through the constructor.   │
+    │    Configured via: <constructor-arg ref="..."/>                     │
+    └─────────────────────────────────────────────────────────────────────┘
+
+    Both beans use the SAME BookRepository singleton and the SAME
+    BookService class — only the injection style differs.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- =====================================================================
+         Bean 1: BookRepository
+         • Scope    : singleton (default)
+         • No deps  : constructed by Spring with no-arg constructor
+    ===================================================================== -->
+    <bean id="bookRepository"
+          class="com.library.repository.BookRepository"/>
+
+    <!-- =====================================================================
+         Bean 2: BookService — wired via SETTER INJECTION
+         • Spring instantiates BookService using the no-arg constructor.
+         • Then it calls: bookService.setBookRepository(bookRepository bean)
+         • <property name="bookRepository" ref="bookRepository"/>
+             name  → maps to setter setBookRepository()
+             ref   → references the "bookRepository" bean above
+    ===================================================================== -->
+    <bean id="bookService"
+          class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepository"/>
+    </bean>
+
+    <!-- =====================================================================
+         Bean 3: BookService — wired via CONSTRUCTOR INJECTION
+         • Spring calls: new BookService(bookRepository bean)
+         • <constructor-arg ref="bookRepository"/>
+             ref → the bean to pass as the constructor argument
+         • Note: both bookService and bookServiceViaConstructor share the
+           SAME singleton BookRepository instance.
+    ===================================================================== -->
+    <bean id="bookServiceViaConstructor"
+          class="com.library.service.BookService">
+        <constructor-arg ref="bookRepository"/>
+    </bean>
+
+</beans>

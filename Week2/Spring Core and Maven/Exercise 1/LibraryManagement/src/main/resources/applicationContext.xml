@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    applicationContext.xml
+    ──────────────────────
+    Spring XML Application Context configuration for the LibraryManagement project.
+
+    This file is loaded by ClassPathXmlApplicationContext from the classpath
+    (src/main/resources → compiled to the root of the classpath).
+
+    Beans defined here:
+      bookRepository  – com.library.repository.BookRepository
+                        No dependencies; acts as the data-access layer.
+
+      bookService     – com.library.service.BookService
+                        Depends on BookRepository, injected via <property> (setter injection).
+
+    Spring IoC Concepts demonstrated:
+      • Bean definition with id and class attributes
+      • Setter-based Dependency Injection using <property name="..." ref="..."/>
+      • Singleton scope (default; each id returns the same instance)
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- =========================================================
+         Bean: BookRepository
+         Scope: singleton (default)
+         Role : Data-access layer – simulates persistence operations.
+    ========================================================= -->
+    <bean id="bookRepository"
+          class="com.library.repository.BookRepository">
+    </bean>
+
+    <!-- =========================================================
+         Bean: BookService
+         Scope: singleton (default)
+         Role : Business-logic layer – orchestrates BookRepository calls.
+         DI   : Setter injection – Spring calls setBookRepository()
+                after constructing the BookService instance.
+    ========================================================= -->
+    <bean id="bookService"
+          class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepository"/>
+    </bean>
+
+</beans>
