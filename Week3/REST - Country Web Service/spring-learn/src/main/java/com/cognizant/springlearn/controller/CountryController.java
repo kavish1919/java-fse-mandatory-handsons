@@ -15,7 +15,7 @@ import com.cognizant.springlearn.model.Country;
 import com.cognizant.springlearn.service.CountryService;
 
 /**
- * CountryController handling REST requests for Country resources.
+ * CountryController handling REST endpoints for Country resources.
  */
 @RestController
 public class CountryController {
@@ -42,6 +42,10 @@ public class CountryController {
 
     /**
      * Retrieves a specific country by its two-letter ISO code (case-insensitive).
+     * Mapped to /countries/{code} and /country/{code}.
+     * 
+     * @param code Two-character ISO code extracted via @PathVariable
+     * @return Matching Country object or null if not found
      */
     @GetMapping({"/countries/{code}", "/country/{code}"})
     public Country getCountry(@PathVariable String code) {
