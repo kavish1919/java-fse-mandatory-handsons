@@ -16,6 +16,16 @@ This repository is intended to serve as a structured learning resource that demo
 
 ---
 
+## Completed Modules
+
+### Week 5: React
+- **React-1**: Setup and first component using `create-react-app`.
+- **React-2 (Student App)**: Functional components, JSX, and basic composition.
+- **React-3 (Score Calculator)**: Props, arrow functions, and CSS stylesheets integration.
+- **React-4 (Blog App)**: Class components, component state, lifecycle methods (`componentDidMount`, `componentDidCatch`), and Fetch API integration.
+
+---
+
 ## Technologies
 
 ### Programming Languages
